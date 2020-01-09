@@ -8,74 +8,19 @@ namespace ConsoleApp2
     {
         static int p;
         static int q;
+        static int n;
         static void Main(string[] args)
         {
             Console.WriteLine("Введите р");
             p = int.Parse(Console.ReadLine());
             Console.WriteLine("Введите q");
             q = int.Parse(Console.ReadLine());
+            n = p * q;
             var matrixA = GetMatrix("matrixA.txt");
             var matrixB = GetMatrix("matrixB.txt");
-
-            //var result = new int[matrixA.GetLength(0)][];
-            //for (int i = 0; i < matrixA.GetLength(0); i++)
-            //    result[i] = new int[matrixA.GetLength(0)];
-
-            //for (int s = 0; s < q; s++)
-            //{
-            //    for (int i = 0; i < q; i++)
-            //        for (int j = 0; j < q; j++)
-            //        {
-            //            var blocOfMatrixA = new int[4];
-            //            for (int y = 0; y < p; y++)
-            //                for (int u = 0; u < p; u++)
-            //                    blocOfMatrixA[y * p + u] = matrixA[i * p + y][s * p + u];
-            //            var blocOfMatrixB = new int[4];
-            //            for (int y = 0; y < p; y++)
-            //                for (int u = 0; u < p; u++)
-            //                    blocOfMatrixB[y * p + u] = matrixB[s * p + y][j * p + u];
-            //            var newBlock = GetMultiplicationOfMatrix(blocOfMatrixA, blocOfMatrixB);
-            //            for (int y = 0; y < p; y++)
-            //                for (int u = 0; u < p; u++)
-            //                    result[i * p + y][j * p + u] += newBlock[y * p + u];
-            //        }
-            //}
-            //PrintMatrix(result);
-
-            var result = new int[matrixA.GetLength(0)][];
-            for (int i = 0; i < matrixA.GetLength(0); i++)
-                result[i] = new int[matrixA.GetLength(0)];
-
-            PrintMatrix(matrixA);
-            BaseSlideMatrixA(matrixA);
-            PrintMatrix(matrixA);
-            PrintMatrix(matrixB);
-            BaseSlideMatrixB(matrixB);
-            PrintMatrix(matrixB);
-            for (int s = 0; s < q; s++)
-            {
-                for (int i = 0; i < q; i++)
-                    for (int j = 0; j < q; j++)
-                    {
-                        var blocOfMatrixA = new int[4];
-                        for (int y = 0; y < p; y++)
-                            for (int u = 0; u < p; u++)
-                                blocOfMatrixA[y * p + u] = matrixA[i * p + y][j * p + u];
-                        var blocOfMatrixB = new int[4];
-                        for (int y = 0; y < p; y++)
-                            for (int u = 0; u < p; u++)
-                                blocOfMatrixB[y * p + u] = matrixB[i * p + y][j * p + u];
-                        var newBlock = GetMultiplicationOfMatrix(blocOfMatrixA, blocOfMatrixB);
-                        for (int y = 0; y < p; y++)
-                            for (int u = 0; u < p; u++)
-                                result[i * p + y][j * p + u] += newBlock[y * p + u];
-                        PrintMatrix(result);
-                    }
-                if (s == q - 1)
-                    break;
-                SlideMatrixA(matrixA);
-                SlideMatrixB(matrixB);
-            }
+            Console.WriteLine();
+            WriteResultOfStandartMultiplicationOfMatrix(matrixA, matrixB);
+            WriteResultOfAlghotimMultiplicationOfMatrix(matrixA, matrixB);
         }
 
         private static void PrintMatrix(int[][] matrix)
@@ -89,14 +34,13 @@ namespace ConsoleApp2
                 Console.WriteLine();
             }
             Console.WriteLine();
-            Console.ReadKey();
         }
 
         private static int[][] GetMatrix(string file)
         {
             using (var streamReader = new StreamReader(Directory.GetCurrentDirectory() + @"\" + file, Encoding.Default)) 
             {
-                var result = new int[p*q][];
+                var result = new int[n][];
                 var line = "";
                 var k = 0;
                 while ((line = streamReader.ReadLine()) != null)
@@ -120,6 +64,59 @@ namespace ConsoleApp2
                     for (int k = 0; k < numbersB.Length / p; k++)
                         result[i * p + j] += numbersA[i * p + k] * numbersB[k * p + j];
             return result;
+        }
+
+        private static void WriteResultOfStandartMultiplicationOfMatrix(int[][] matrixA, int[][] matrixB)
+        {
+            var start = DateTime.Now;
+            var result = new int[matrixA.GetLength(0)][];
+            for (int i = 0; i < matrixA.GetLength(0); i++)
+                result[i] = new int[matrixA.GetLength(0)];
+
+            for (int s = 0; s < n; s++)
+                for (int i = 0; i < n; i++)
+                    for (int j = 0; j < n; j++)
+                        result[i][j] += matrixA[i][s] * matrixB[s][j];
+
+            PrintMatrix(result);
+            Console.WriteLine((DateTime.Now - start).TotalMilliseconds);
+        }
+
+        private static void WriteResultOfAlghotimMultiplicationOfMatrix(int[][] matrixA, int[][] matrixB)
+        {
+            var start = DateTime.Now;
+            var result = new int[matrixA.GetLength(0)][];
+            for (int i = 0; i < matrixA.GetLength(0); i++)
+                result[i] = new int[matrixA.GetLength(0)];
+
+            BaseSlideMatrixA(matrixA);
+            BaseSlideMatrixB(matrixB);
+            for (int s = 0; s < q; s++)
+            {
+                for (int i = 0; i < q; i++)
+                    for (int j = 0; j < q; j++)
+                    {
+                        var blocOfMatrixA = new int[4];
+                        for (int y = 0; y < p; y++)
+                            for (int u = 0; u < p; u++)
+                                blocOfMatrixA[y * p + u] = matrixA[i * p + y][j * p + u];
+                        var blocOfMatrixB = new int[4];
+                        for (int y = 0; y < p; y++)
+                            for (int u = 0; u < p; u++)
+                                blocOfMatrixB[y * p + u] = matrixB[i * p + y][j * p + u];
+                        var newBlock = GetMultiplicationOfMatrix(blocOfMatrixA, blocOfMatrixB);
+                        for (int y = 0; y < p; y++)
+                            for (int u = 0; u < p; u++)
+                                result[i * p + y][j * p + u] += newBlock[y * p + u];
+                    }
+                if (s == q - 1)
+                    break;
+                SlideMatrixA(matrixA);
+                SlideMatrixB(matrixB);
+            }
+
+            PrintMatrix(result);
+            Console.WriteLine((DateTime.Now - start).TotalMilliseconds);
         }
 
         private static void BaseSlideMatrixA(int[][] matrixA)

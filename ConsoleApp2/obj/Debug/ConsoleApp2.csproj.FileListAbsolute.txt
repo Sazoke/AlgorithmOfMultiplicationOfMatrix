@@ -4,3 +4,9 @@ C:\Users\solov\source\repos\ConsoleApp2\ConsoleApp2\bin\Debug\ConsoleApp2.pdb
 C:\Users\solov\source\repos\ConsoleApp2\ConsoleApp2\obj\Debug\ConsoleApp2.csprojAssemblyReference.cache
 C:\Users\solov\source\repos\ConsoleApp2\ConsoleApp2\obj\Debug\ConsoleApp2.exe
 C:\Users\solov\source\repos\ConsoleApp2\ConsoleApp2\obj\Debug\ConsoleApp2.pdb
+C:\Users\solov\Desktop\Новая папка\Sanya-pidor\ConsoleApp2\bin\Debug\ConsoleApp2.exe.config
+C:\Users\solov\Desktop\Новая папка\Sanya-pidor\ConsoleApp2\bin\Debug\ConsoleApp2.exe
+C:\Users\solov\Desktop\Новая папка\Sanya-pidor\ConsoleApp2\bin\Debug\ConsoleApp2.pdb
+C:\Users\solov\Desktop\Новая папка\Sanya-pidor\ConsoleApp2\obj\Debug\ConsoleApp2.csprojAssemblyReference.cache
+C:\Users\solov\Desktop\Новая папка\Sanya-pidor\ConsoleApp2\obj\Debug\ConsoleApp2.exe
+C:\Users\solov\Desktop\Новая папка\Sanya-pidor\ConsoleApp2\obj\Debug\ConsoleApp2.pdb
