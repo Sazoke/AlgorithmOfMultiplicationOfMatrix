@@ -20,7 +20,7 @@ namespace ConsoleApp2
             var matrixB = GetMatrix("matrixB.txt");
             Console.WriteLine();
             WriteResultOfStandartMultiplicationOfMatrix(matrixA, matrixB);
-            WriteResultOfAlghotimMultiplicationOfMatrix(matrixA, matrixB);
+            WriteResultOfAlgorithmOfMultiplicationOfMatrix(matrixA, matrixB);
         }
 
         private static void PrintMatrix(int[][] matrix)
@@ -82,7 +82,7 @@ namespace ConsoleApp2
             Console.WriteLine((DateTime.Now - start).TotalMilliseconds);
         }
 
-        private static void WriteResultOfAlghotimMultiplicationOfMatrix(int[][] matrixA, int[][] matrixB)
+        private static void WriteResultOfAlgorithmOfMultiplicationOfMatrix(int[][] matrixA, int[][] matrixB)
         {
             var start = DateTime.Now;
             var result = new int[matrixA.GetLength(0)][];
@@ -96,11 +96,11 @@ namespace ConsoleApp2
                 for (int i = 0; i < q; i++)
                     for (int j = 0; j < q; j++)
                     {
-                        var blocOfMatrixA = new int[4];
+                        var blocOfMatrixA = new int[p * p];
                         for (int y = 0; y < p; y++)
                             for (int u = 0; u < p; u++)
                                 blocOfMatrixA[y * p + u] = matrixA[i * p + y][j * p + u];
-                        var blocOfMatrixB = new int[4];
+                        var blocOfMatrixB = new int[p * p];
                         for (int y = 0; y < p; y++)
                             for (int u = 0; u < p; u++)
                                 blocOfMatrixB[y * p + u] = matrixB[i * p + y][j * p + u];
